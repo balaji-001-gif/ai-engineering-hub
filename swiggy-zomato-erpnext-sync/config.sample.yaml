@@ -1,0 +1,67 @@
+sync:
+  poll_interval_seconds: 120
+  state_file: ".sync_state.json"
+
+swiggy:
+  enabled: true
+  base_url: "https://partner.swiggy.com"
+  orders_endpoint: "/api/v1/orders"
+  auth_header: "Authorization"
+  auth_token: "SWIGGY_API_TOKEN"
+  params:
+    status: "NEW,CONFIRMED,READY"
+  order_path: "data.orders"
+  field_mapping:
+    id: "order_id"
+    created_at: "created_at"
+    customer_name: "customer.name"
+    customer_phone: "customer.phone"
+    total: "payment.total"
+    items: "items"
+
+zomato:
+  enabled: true
+  base_url: "https://partner.zomato.com"
+  orders_endpoint: "/api/v2/orders"
+  auth_header: "X-Zomato-Token"
+  auth_token: "ZOMATO_API_TOKEN"
+  params:
+    status: "NEW,CONFIRMED,READY"
+  order_path: "data.orders"
+  field_mapping:
+    id: "order_id"
+    created_at: "created_at"
+    customer_name: "customer.name"
+    customer_phone: "customer.phone"
+    total: "payment.total"
+    items: "items"
+
+erpnext:
+  base_url: "https://your-erpnext.example.com"
+  api_key: "ERP_API_KEY"
+  api_secret: "ERP_API_SECRET"
+  company: "My Company"
+  customer_default: "Online Customer"
+  pos_profile: "Online POS"
+  item_default: "Online Item"
+  warehouse: "Stores - MC"
+  cost_center: "Main - MC"
+  taxes_and_charges: "GST 5%"
+
+  # Map third-party fields to ERPNext POS Invoice fields.
+  # Values can be literal strings or field paths (e.g. "customer.name").
+  field_mapping:
+    customer_name: "customer_name"
+    customer_phone: "customer_phone"
+    posting_date: "created_at"
+    posting_time: "created_at"
+    paid_amount: "total"
+    base_grand_total: "total"
+
+items:
+  # Map item payloads to ERPNext line items
+  field_mapping:
+    item_code: "sku"
+    item_name: "name"
+    qty: "quantity"
+    rate: "price"
